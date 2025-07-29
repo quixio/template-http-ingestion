@@ -35,47 +35,6 @@ deployments:
         inputType: Secret
         description: The optional InfluxDB Token to use
         secretKey: influxdb_admin_token
-  - name: MQTT Source
-    application: mqtt-source
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 200
-      replicas: 1
-    variables:
-      - name: output
-        inputType: OutputTopic
-        description: Name of the output topic to publish to.
-        required: true
-        value: mqtt_data
-      - name: MQTT_TOPIC
-        inputType: FreeText
-        description: The root for messages in MQTT, this can be anything
-        required: true
-        value: printers/#
-      - name: MQTT_SERVER
-        inputType: FreeText
-        description: The address of your MQTT server
-        required: true
-        value: mqtt-server
-      - name: MQTT_PORT
-        inputType: FreeText
-        description: The port of your MQTT server
-        required: true
-        value: 1883
-      - name: MQTT_USERNAME
-        inputType: FreeText
-        description: Username of your MQTT user
-        value: admin
-      - name: MQTT_VERSION
-        inputType: FreeText
-        description: 'MQTT protocol version: 3.1, 3.1.1, 5'
-        required: true
-        value: 3.1.1
-      - name: MQTT_PASSWORD
-        inputType: Secret
-        secretKey: mqtt_password
   - name: HTTP API Source
     application: http-api-source
     version: latest
@@ -149,76 +108,6 @@ deployments:
         inputType: FreeText
         description: Desired loglevel; Use 'DEBUG' to see change events, else INFO for max performance.
         value: INFO
-  - name: MQTT Sink
-    application: mqtt-sink
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 200
-      replicas: 1
-    variables:
-      - name: input
-        inputType: InputTopic
-        description: Name of the input topic to listen to.
-        required: true
-        value: external-mqtt_data
-      - name: MQTT_CLIENT_ID
-        inputType: FreeText
-        description: A client ID for the sink
-        required: true
-        value: printer-data-sink
-      - name: MQTT_TOPIC_ROOT
-        inputType: FreeText
-        description: The root for messages in MQTT, this can be anything
-        value: printers
-      - name: MQTT_SERVER
-        inputType: FreeText
-        description: The address of your MQTT server
-        required: true
-        value: mqtt-server
-      - name: MQTT_PORT
-        inputType: FreeText
-        description: The port of your MQTT server
-        required: true
-        value: 1883
-      - name: MQTT_USERNAME
-        inputType: FreeText
-        description: The username to connect to MQTT with
-        required: true
-        value: admin
-      - name: MQTT_PASSWORD
-        inputType: Secret
-        description: The password to connect to MQTT with
-        required: true
-        secretKey: mqtt_password
-      - name: MQTT_VERSION
-        inputType: FreeText
-        description: 'MQTT protocol version: 3.1, 3.1.1, 5'
-        required: true
-        value: 3.1.1
-      - name: MQTT_USE_TLS
-        inputType: FreeText
-        description: Set to true if the server uses TLS
-        required: true
-        value: false
-  - name: OPC UA to MQTT
-    application: opc-ua-to-mqtt
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    variables:
-      - name: input
-        inputType: InputTopic
-        description: Name of the input topic to listen to.
-        value: generated-opc_ua_data
-      - name: output
-        inputType: OutputTopic
-        description: Name of the output topic to write to.
-        value: external-mqtt_data
   - name: HTTP Data Normalization
     application: http-data-normalization
     version: latest
@@ -235,26 +124,6 @@ deployments:
         inputType: InputTopic
         description: Name of the input topic to listen to.
         value: http_data
-      - name: output
-        inputType: OutputTopic
-        description: Name of the output topic to write to.
-        value: normalized_data
-  - name: MQTT Data Normalization
-    application: mqtt-data-normalization
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    state:
-      enabled: true
-      size: 1
-    variables:
-      - name: input
-        inputType: InputTopic
-        description: Name of the input topic to listen to.
-        value: mqtt_data
       - name: output
         inputType: OutputTopic
         description: Name of the output topic to write to.
@@ -291,33 +160,6 @@ deployments:
         description: Bucket Name to initialize Influx with
         required: true
         value: my_bucket
-  - name: MQTT Server
-    application: mqtt-server
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    state:
-      enabled: true
-      size: 5
-    network:
-      serviceName: mqtt-server
-      ports:
-        - port: 1883
-          targetPort: 1883
-    variables:
-      - name: MQTT_USERNAME
-        inputType: FreeText
-        description: The username to connect to the server with
-        required: true
-        value: admin
-      - name: MQTT_PASSWORD
-        inputType: Secret
-        description: The password to connect to the server with
-        required: true
-        secretKey: mqtt_password
   - name: HTTP Sink
     application: http-sink
     version: latest
@@ -372,7 +214,7 @@ deployments:
       - name: INFLUXDB_MEASUREMENT_NAME
         inputType: FreeText
         description: The InfluxDB measurement to write data to. If not specified, the name of the input topic will be used
-        value: printers
+        value: printers3
       - name: INFLUXDB_DATABASE
         inputType: FreeText
         description: Database name in InfluxDB where data should be stored.
@@ -406,10 +248,6 @@ deployments:
 # This section describes the Topics of the data pipeline
 topics:
   - name: generated-opc_ua_data
-    dataTier: Bronze
-  - name: external-mqtt_data
-    dataTier: Bronze
-  - name: mqtt_data
     dataTier: Bronze
   - name: http_data
     dataTier: Bronze
