@@ -63,8 +63,9 @@ These will be requested once this project template is deployed:
 }
 ```
 
-The HTTP source will receive IoT events from a sensor (`machine`) that contain a value (`val`) for a given measurement 
-(`param`), along with the timestamp it was generated at (`srv_ts`).
+The HTTP source will receive IoT events from a sensor (`machine`) that each contain a 
+value (`val`) for a given measurement (`param`), along with the timestamp it was 
+generated at (`srv_ts`).
 
 In total, there are 2 different parameters: `T001` and `T002`.
 
@@ -73,11 +74,10 @@ In this example, there is only 1 machine (`3D_PRINTER_2`).
 
 ### Normalizing Events
 
-We will normalize these events so that rather than each parameter is no longer an individual
-event.
+We will normalize these events so that each parameter is no longer an individual event.
 
-Instead, we will aggregate all parameters so that for a given machine, we have the average
-of each parameter over one second (determined by the event timestamp, `srv_ts`).
+Instead, we aggregate across all parameters so that for a given machine, we get the 
+average of each parameter across 1 second (determined by the event timestamp, `srv_ts`).
 
 This will result in a new outgoing aggregate event:
 
@@ -100,6 +100,8 @@ These events are then pushed to InfluxDB2 to database `my_bucket` under measurem
 `printers` (with `machine` as a tag).
 
 
+**my_bucket**: **printers**
+
 | T001  | T002   | timestamp (_time)            | machine (_tag)   |
 |-------|--------|------------------------------|------------------|
 | 97.20 | 194.41 | "2025-07-28 15:52:51.600000" | "3D_PRINTER_2"   |
@@ -108,7 +110,7 @@ These events are then pushed to InfluxDB2 to database `my_bucket` under measurem
 
 ## Grafana
 
-There is a simple example Grafana dashboard included in the project.
+There is a simple Grafana dashboard included in the project.
 
 You can select which column to view (`T001`, `T002`) for the given graphs.
 
