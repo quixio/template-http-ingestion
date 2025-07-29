@@ -1,0 +1,20 @@
+name: HTTP Sink
+language: python
+variables:
+  - name: input
+    inputType: InputTopic
+    description: Name of the input topic to listen to.
+    defaultValue: opc_ua_data
+  - name: RECEIVER_URL
+    inputType: FreeText
+    multiline: false
+    description: What HTTP receiver endpoint to send data to.
+    required: true
+  - name: RECEIVER_AUTH_TOKEN
+    inputType: Secret
+    description: The token for authenticating with an HTTP data receiver.
+    required: true
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: starter-destination

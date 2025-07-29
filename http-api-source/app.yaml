@@ -1,0 +1,16 @@
+name: HTTP API Source
+language: python
+variables:
+  - name: output
+    inputType: OutputTopic
+    description: The topic to output data to.
+    defaultValue: http-data
+    required: true
+  - name: HTTP_AUTH_TOKEN
+    inputType: Secret
+    description: A security token for authorizing data submissions.
+    required: true
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: web-api-gateway
