@@ -9,7 +9,27 @@ It also includes visualization/dashboard examples using Grafana (which queries I
 
 ## Project Architecture
 
--DIAGRAMS HERE-
+### HTTP Ingestion Pipeline
+
+This is the HTTP-based data ingestion portion of the project:
+
+![img](images/pipeline.png)
+
+
+
+### Mock Data Source
+
+These applications are only meant to simulate an external data source:
+
+![img](images/datagen.png)
+
+
+### Standalone Services
+
+These are standalone services, including an InfluxDB2 instance.
+
+![img](images/services.png)
+
 
 
 
@@ -63,9 +83,9 @@ This will result in a new outgoing aggregate event:
 
 ```json
 {
-  "T001": 97.20716911943455,
+  "T001": 97.20,
   "machine": "3D_PRINTER_2",
-  "T002": 194.41638423332338,
+  "T002": 194.41,
   "timestamp": "2025-07-28 15:52:51.600000"
 }
 ```
@@ -79,8 +99,20 @@ This aggregation is done using a Quix Streams `tumbling_window` operation, found
 These events are then pushed to InfluxDB2 to database `my_bucket` under measurement 
 `printers` (with `machine` as a tag).
 
--TABLE HERE-
+
+| T001  | T002   | timestamp (_time)            | machine (_tag)   |
+|-------|--------|------------------------------|------------------|
+| 97.20 | 194.41 | "2025-07-28 15:52:51.600000" | "3D_PRINTER_2"   |
+
+
 
 ## Grafana
 
--GRAFANA GRAPHS HERE-
+There is a simple example Grafana dashboard included in the project.
+
+You can select which column to view (`T001`, `T002`) for the given graphs.
+
+There is a simple Time Series graph and mean value gauge, each based on the 
+selected time window.
+
+![img](images/grafana.png)
