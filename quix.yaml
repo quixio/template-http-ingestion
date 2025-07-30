@@ -323,3 +323,4 @@ topics:
   - name: quix
   - name: postgresql_password
   - name: postgres
+  - name: 5432
