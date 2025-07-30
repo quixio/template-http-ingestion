@@ -292,7 +292,7 @@ deployments:
         inputType: FreeText
         description: The hostname for the PostgreSQL instance
         required: true
-        value: postgres
+        value: postgresql
       - name: POSTGRES_PORT
         inputType: FreeText
         description: The port for the PostgreSQL instance
@@ -327,3 +327,4 @@ topics:
   - name: postgresql_password
   - name: postgres
   - name: 5432
+  - name: postgresql
