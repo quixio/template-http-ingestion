@@ -252,6 +252,9 @@ deployments:
       cpu: 1000
       memory: 8000
       replicas: 1
+    state:
+      enabled: true
+      size: 1
     network:
       serviceName: postgresql
       ports:
@@ -284,3 +287,4 @@ topics:
     dataTier: Silver
   - name: admin
   - name: quix
+  - name: postgresql_password
