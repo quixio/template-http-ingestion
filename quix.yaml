@@ -297,7 +297,7 @@ deployments:
         inputType: FreeText
         description: The port for the PostgreSQL instance
         required: true
-        value: 5432
+        value: 80
       - name: POSTGRES_USER
         inputType: FreeText
         description: The user for the PostgreSQL instance
@@ -328,3 +328,4 @@ topics:
   - name: postgres
   - name: 5432
   - name: postgresql
+  - name: 80
