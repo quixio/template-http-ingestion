@@ -1,0 +1,31 @@
+name: configuration-frontend
+language: Python
+variables:
+  - name: POSTGRES_HOST
+    inputType: FreeText
+    description: The hostname for the PostgreSQL instance
+    defaultValue: admin
+    required: true
+  - name: POSTGRES_PORT
+    inputType: FreeText
+    description: The port for the PostgreSQL instance
+    defaultValue: admin
+    required: true
+  - name: POSTGRES_USER
+    inputType: FreeText
+    description: The user for the PostgreSQL instance
+    defaultValue: admin
+    required: true
+  - name: POSTGRES_PASSWORD
+    inputType: Secret
+    description: The password for the PostgreSQL instance
+    required: true
+  - name: POSTGRES_DBNAME
+    inputType: FreeText
+    description: The database name for the PostgreSQL instance
+    defaultValue: quix
+    required: true
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: streamlit
