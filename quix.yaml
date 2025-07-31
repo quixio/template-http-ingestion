@@ -365,3 +365,4 @@ topics:
     dataTier: Silver
   - name: influxdb_admin_token
   - name: printers
+  - name: my_bucket
