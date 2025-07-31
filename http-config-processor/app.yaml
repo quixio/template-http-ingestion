@@ -14,6 +14,10 @@ variables:
     inputType: FreeText
     description: The PostgreSQL host to connect to.
     required: true
+  - name: POSTGRES_PORT
+    inputType: FreeText
+    description: The PostgreSQL port to connect to.
+    required: true
   - name: POSTGRES_USER
     inputType: FreeText
     description: The PostgreSQL user to connect with.
