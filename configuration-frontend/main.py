@@ -46,17 +46,16 @@ def init_db_if_needed():
                     ("3D_PRINTER_2", "T002", "sensor_2", 1.0)
                 ])
                 conn.commit()
-        conn.close()
 
         st.session_state["db_initialized"] = True
 
 
-def get_all_data(conn):
-    return pd.read_sql("SELECT * FROM printer_configs ORDER BY printer_id, field_id", conn)
+def get_all_data():
+    return pd.read_sql("SELECT * FROM printer_configs ORDER BY printer_id, field_id", get_conn())
 
 
-def insert_row(conn, printer_id, field_id, field_name, field_scalar):
-    with conn.cursor() as cur:
+def insert_row(printer_id, field_id, field_name, field_scalar):
+    with get_conn().cursor() as cur:
         cur.execute("""
             INSERT INTO printer_configs (printer_id, field_id, field_name, field_scalar)
             VALUES (%s, %s, %s, %s)
@@ -98,10 +97,10 @@ with st.form("add_row_form"):
             st.error("Printer ID and Field ID are required.")
         try:
             # note: could append this to a cached dataframe, but reloading is simpler
-            insert_row(conn, printer_id, field_id, field_name, field_scalar)
-            st.success(f"Row added to `{printer_id}`.")
+            insert_row(printer_id, field_id, field_name, field_scalar)
+            st.success(f"{printer_id} add field_id {field_id}.")
         except Exception as e:
             st.error(f"Error: {e}")
 
 with df_container:
-    st.dataframe(get_all_data(conn), use_container_width=True)
+    st.dataframe(get_all_data(), use_container_width=True)
