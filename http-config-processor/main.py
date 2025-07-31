@@ -60,8 +60,7 @@ def main():
         lookup=postgres_lookup,
         fields=postgres_lookup_fields,
         on="machine",
-    )
-    sdf = sdf.apply(config_apply)
+    ).apply(config_apply)
 
     # Finish off by writing to the final result to the output topic
     sdf.to_topic(output_topic, key=lambda row: row["machine"])
