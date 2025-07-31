@@ -364,7 +364,6 @@ topics:
     dataTier: Bronze
   - name: normalized_data
     dataTier: Silver
-  - name: admin
   - name: quix
   - name: postgresql_password
   - name: postgres
