@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import psycopg2
-from psycopg2 import sql
 import os
 
 
@@ -20,8 +19,9 @@ def get_conn():
     )
 
 
-def init_db_if_needed(conn):
+def init_db_if_needed():
     if not st.session_state.get("db_initialized", False):
+        conn = get_conn()
         with conn.cursor() as cur:
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS printer_configs (
@@ -46,6 +46,7 @@ def init_db_if_needed(conn):
                     ("3D_PRINTER_2", "T002", "sensor_2", 1.0)
                 ])
                 conn.commit()
+        conn.close()
 
         st.session_state["db_initialized"] = True
 
@@ -67,6 +68,9 @@ def insert_row(conn, printer_id, field_id, field_name, field_scalar):
         conn.commit()
 
 
+# init DB before any streamlit stuff
+init_db_if_needed()
+
 # ---------- STREAMLIT APP ----------
 
 
@@ -74,7 +78,6 @@ st.title("📊 PostgreSQL Configuration Interface")
 
 # Connect to DB and init if needed
 conn = get_conn()
-init_db_if_needed(conn)
 
 # Show combined data
 st.subheader("🧾 Current Configurations")
