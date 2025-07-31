@@ -13,7 +13,6 @@ variables:
   - name: POSTGRES_HOST
     inputType: FreeText
     description: The PostgreSQL host to connect to.
-    defaultValue: admin
     required: true
   - name: POSTGRES_USER
     inputType: FreeText
