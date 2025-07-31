@@ -367,3 +367,4 @@ topics:
   - name: printers
   - name: my_bucket
   - name: machine
+  - name: influxdb2-sink3
