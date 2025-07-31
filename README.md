@@ -1,7 +1,8 @@
-# Simple HTTP Ingestion Project Template
+# HTTP Ingestion with DB Configuration Project Template
 
-This example project demonstrates how to receive data from an HTTP endpoint, 
-do some normalizations, and then publish the augmented data to an InfluxDB2 database.
+This example project `demonstrates` how to receive data from an HTTP endpoint, 
+do some normalizations followed by applying a configuration set by a frontend
+application, and then publish the augmented data to an InfluxDB2 database.
 
 It also includes visualization/dashboard examples using Grafana (which queries InfluxDB2).
 
@@ -9,9 +10,9 @@ It also includes visualization/dashboard examples using Grafana (which queries I
 
 ## Project Architecture
 
-### HTTP Ingestion Pipeline
+### HTTP Ingestion and Processing Pipeline
 
-This is the HTTP-based data ingestion portion of the project:
+This is the HTTP-based data ingestion and processing portion of the project:
 
 ![img](images/pipeline.png)
 
@@ -94,6 +95,21 @@ This aggregation is done using a Quix Streams `tumbling_window` operation, found
 `HTTP Data Normalization` application.
 
 
+### Applying Printer Config
+
+Using the `Configuration Frontend`, you can set what values will be used by the 
+`HTTP Config Processor`.
+
+By default, these will be the settings:
+
+![img](images/config_frontend.png)
+
+They can be changed by going to the frontend and adjusting the values.
+
+The `HTTP Config Processor` will use these to convert the names of the fields using the
+mapping specified here, and also apply the scalar to the given respective field.
+
+
 ### InfluxDB2 Data
 
 These events are then pushed to InfluxDB2 to database `my_bucket` under measurement 
@@ -102,17 +118,17 @@ These events are then pushed to InfluxDB2 to database `my_bucket` under measurem
 
 **my_bucket**: **printers**
 
-| T001  | T002   | timestamp (_time)            | machine (_tag)   |
-|-------|--------|------------------------------|------------------|
-| 97.20 | 194.41 | "2025-07-28 15:52:51.600000" | "3D_PRINTER_2"   |
+| sensor_1 | sensor_2 | timestamp (_time)            | machine (_tag)   |
+|----------|----------|------------------------------|------------------|
+| 97.20    | 194.41   | "2025-07-28 15:52:51.600000" | "3D_PRINTER_2"   |
 
-
+> Note: notice that the column names reflect what is specified in the config!
 
 ## Grafana
 
 There is a simple Grafana dashboard included in the project.
 
-You can select which column to view (`T001`, `T002`) for the given graphs.
+You can select which column to view (`sensor_1`, `sensor_2`) for the given graphs.
 
 There is a simple Time Series graph and mean value gauge, each based on the 
 selected time window.
