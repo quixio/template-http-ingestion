@@ -112,8 +112,8 @@ init_db_if_needed(conn)
 
 # Show combined data
 st.subheader("🧾 Current Configurations")
-df = get_all_data(conn)
-st.dataframe(df, use_container_width=True)
+df_container = st.container()
+df_container.dataframe(get_all_data(conn), use_container_width=True)
 
 # Add row form
 st.subheader("➕ Add New Entry")
@@ -132,6 +132,7 @@ with st.form("add_row_form"):
         try:
             insert_row(conn, table_name, field_id, field_name, field_scalar)
             st.success(f"Row added to `{table_name}`.")
-            st.experimental_rerun()  # Refresh to show update
+            # could be more efficient and cache the df and append, but this is simpler
+            df_container.dataframe(get_all_data(conn), use_container_width=True)
         except Exception as e:
             st.error(f"Error: {e}")
