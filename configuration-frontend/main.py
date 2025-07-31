@@ -1,5 +1,3 @@
-import time
-
 import streamlit as st
 import pandas as pd
 import psycopg2
@@ -114,7 +112,7 @@ init_db_if_needed(conn)
 
 # Show combined data
 st.subheader("🧾 Current Configurations")
-st.dataframe(get_all_data(conn), use_container_width=True)
+df_container = st.container()
 
 # Add row form
 st.subheader("➕ Add New Entry")
@@ -134,6 +132,8 @@ with st.form("add_row_form"):
             # note: could append this to a cached dataframe, but reloading is simpler
             insert_row(conn, table_name, field_id, field_name, field_scalar)
             st.success(f"Row added to `{table_name}`.")
-            time.sleep(1)
         except Exception as e:
             st.error(f"Error: {e}")
+
+with df_container:
+    st.dataframe(get_all_data(conn), use_container_width=True)
