@@ -364,7 +364,6 @@ topics:
     dataTier: Bronze
   - name: normalized_data
     dataTier: Silver
-  - name: postgresql_password
   - name: config_processed_data
     dataTier: Silver
   - name: influxdb_admin_token
