@@ -373,4 +373,3 @@ topics:
   - name: my_bucket
   - name: machine
   - name: influxdb2-sink3
-  - name: timestamp
