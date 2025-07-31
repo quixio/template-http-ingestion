@@ -10,19 +10,24 @@ variables:
     multiline: false
     description: Name of the output topic to write to.
     defaultValue: output_topic
+  - name: POSTGRES_HOST
+    inputType: FreeText
+    description: The PostgreSQL host to connect to.
+    defaultValue: admin
+    required: true
   - name: POSTGRES_USER
     inputType: FreeText
-    description: The root username to initialize PostgreSQL with
+    description: The PostgreSQL user to connect with.
     defaultValue: admin
     required: true
   - name: POSTGRES_PASSWORD
     inputType: Secret
-    description: The root password to initialize MongoDB with
+    description: The PostgreSQL password to connect with.
     defaultValue: postgresql_password
     required: true
   - name: POSTGRES_DBNAME
     inputType: FreeText
-    description: The default database name to initialize PostgreSQL with
+    description: The PostgreSQL database to connect to.
     defaultValue: quix
     required: true
 dockerfile: dockerfile
