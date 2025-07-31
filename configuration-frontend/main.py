@@ -73,7 +73,9 @@ init_db_if_needed()
 # ---------- STREAMLIT APP ----------
 
 
-st.title("📊 PostgreSQL Configuration Interface")
+st.title("📊 HTTP Config Processor Viewer and Editor")
+st.text("This shows the current configs used by `HTTP Config Processor`.")
+st.text("Edits take <=30 seconds to reflect in the Processor due to its TTL setting.")
 
 # Connect to DB and init if needed
 conn = get_conn()
@@ -83,7 +85,7 @@ st.subheader("🧾 Current Configurations")
 df_container = st.container()
 
 # Add row form
-st.subheader("➕ Add New Entry")
+st.subheader("➕ Add or Update Entry")
 with st.form("add_row_form"):
     col1, col2, col3, col4 = st.columns(4)
     printer_id = col1.text_input("Printer ID", placeholder="ex: 3D_PRINTER_2")
@@ -98,7 +100,7 @@ with st.form("add_row_form"):
         try:
             # note: could append this to a cached dataframe, but reloading is simpler
             insert_row(printer_id, field_id, field_name, field_scalar)
-            st.success(f"{printer_id} add field_id {field_id}.")
+            st.success(f"{printer_id} updated field_id {field_id}.")
         except Exception as e:
             st.error(f"Error: {e}")
 
