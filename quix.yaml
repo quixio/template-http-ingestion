@@ -366,4 +366,3 @@ topics:
     dataTier: Silver
   - name: config_processed_data
     dataTier: Silver
-  - name: influxdb_admin_token
