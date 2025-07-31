@@ -29,7 +29,7 @@ def config_apply(row: dict) -> dict:
     """
     print(row)
     for field_cfg in row["configs"]:
-        new_value = row.pop(field_cfg["field_id"]) * row["field_scalar"]
+        new_value = row.pop(field_cfg["field_id"]) * field_cfg["field_scalar"]
         row[field_cfg["field_name"]] = new_value
     return row
 
