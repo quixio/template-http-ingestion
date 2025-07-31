@@ -329,3 +329,5 @@ topics:
   - name: 5432
   - name: postgresql
   - name: 80
+  - name: config_processed_data
+    dataTier: Silver
