@@ -14,6 +14,7 @@ from datetime import datetime
 def get_postgres_lookup() -> PostgresLookup:
     return PostgresLookup(
         host=os.environ["POSTGRES_HOST"],
+        port=os.environ["POSTGRES_PORT"],
         user=os.environ["POSTGRES_USER"],
         password=os.environ["POSTGRES_PASSWORD"],
         dbname=os.environ["POSTGRES_DBNAME"],
