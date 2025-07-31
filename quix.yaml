@@ -370,7 +370,6 @@ topics:
   - name: postgres
   - name: 5432
   - name: postgresql
-  - name: 80
   - name: config_processed_data
     dataTier: Silver
   - name: influxdb_admin_token
