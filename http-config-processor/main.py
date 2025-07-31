@@ -27,7 +27,6 @@ def config_apply(row: dict) -> dict:
     The configs are a list of dicts that each look like:
     {"field_id": "T001", "field_name": "sensor_1", "field_scalar": .50}
     """
-    print(row)
     for field_cfg in row.pop("configs"):
         new_value = row.pop(field_cfg["field_id"]) * field_cfg["field_scalar"]
         row[field_cfg["field_name"]] = new_value
