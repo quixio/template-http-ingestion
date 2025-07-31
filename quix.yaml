@@ -377,4 +377,3 @@ topics:
   - name: machine
   - name: influxdb2-sink3
   - name: timestamp
-  - name: 1
