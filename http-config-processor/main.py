@@ -50,7 +50,8 @@ def main():
             table="printer_configs",
             columns=["field_id", "field_name", "field_scalar"],
             on="printer_id",
-            first_match_only=False
+            first_match_only=False,
+            ttl=30.0,
         )
     }
 
