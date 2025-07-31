@@ -330,19 +330,29 @@ deployments:
         inputType: OutputTopic
         description: Name of the output topic to write to.
         value: config_processed_data
+      - name: POSTGRES_HOST
+        inputType: FreeText
+        description: The PostgreSQL host to connect to.
+        required: true
+        value: postgresql
+      - name: POSTGRES_PORT
+        inputType: FreeText
+        description: The PostgreSQL port to connect to.
+        required: true
+        value: 80
       - name: POSTGRES_USER
         inputType: FreeText
-        description: The root username to initialize PostgreSQL with
+        description: The PostgreSQL user to connect with.
         required: true
         value: admin
       - name: POSTGRES_PASSWORD
         inputType: Secret
-        description: The root password to initialize MongoDB with
+        description: The PostgreSQL password to connect with.
         required: true
         secretKey: postgresql_password
       - name: POSTGRES_DBNAME
         inputType: FreeText
-        description: The default database name to initialize PostgreSQL with
+        description: The PostgreSQL database to connect to.
         required: true
         value: quix
 
