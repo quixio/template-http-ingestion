@@ -370,5 +370,4 @@ topics:
   - name: config_processed_data
     dataTier: Silver
   - name: influxdb_admin_token
-  - name: machine
   - name: influxdb2-sink3
