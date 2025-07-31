@@ -1,3 +1,5 @@
+import time
+
 import streamlit as st
 import pandas as pd
 import psycopg2
@@ -129,7 +131,9 @@ with st.form("add_row_form"):
 
     if submitted:
         try:
+            # note: could append this to a cached dataframe, but reloading is simpler
             insert_row(conn, table_name, field_id, field_name, field_scalar)
             st.success(f"Row added to `{table_name}`.")
+            time.sleep(1)
         except Exception as e:
             st.error(f"Error: {e}")
