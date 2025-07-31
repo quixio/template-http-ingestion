@@ -100,7 +100,7 @@ with st.form("add_row_form"):
         try:
             # note: could append this to a cached dataframe, but reloading is simpler
             insert_row(printer_id, field_id, field_name, field_scalar)
-            st.success(f"{printer_id} updated field_id {field_id}.")
+            st.success(f"{printer_id} updated field_id '{field_id}'.")
         except Exception as e:
             st.error(f"Error: {e}")
 
