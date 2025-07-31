@@ -368,7 +368,6 @@ topics:
   - name: quix
   - name: postgresql_password
   - name: postgres
-  - name: 5432
   - name: postgresql
   - name: config_processed_data
     dataTier: Silver
