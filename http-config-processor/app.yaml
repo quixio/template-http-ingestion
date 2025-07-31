@@ -17,6 +17,7 @@ variables:
   - name: POSTGRES_PORT
     inputType: FreeText
     description: The PostgreSQL port to connect to.
+    defaultValue: 80
     required: true
   - name: POSTGRES_USER
     inputType: FreeText
