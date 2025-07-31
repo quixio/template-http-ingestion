@@ -27,6 +27,7 @@ def config_apply(row: dict) -> dict:
     The configs are a list of dicts that each look like:
     {"field_id": "T001", "field_name": "sensor_1", "field_scalar": .50}
     """
+    print(row)
     for field_cfg in row["configs"]:
         new_value = row.pop(field_cfg["field_id"]) * row["field_scalar"]
         row[field_cfg["field_name"]] = new_value
@@ -56,7 +57,7 @@ def main():
 
     # SDF operations to pull the configs from Postgres and then apply them
     sdf = app.dataframe(topic=input_topic)
-    sdf.join_lookup(
+    sdf = sdf.join_lookup(
         lookup=postgres_lookup,
         fields=postgres_lookup_fields,
         on="machine",
