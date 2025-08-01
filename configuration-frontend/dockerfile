@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 80
 
 # Copy app files
-COPY main.py init_db.py entrypoint.sh ./
+COPY main.py db_helpers.py entrypoint.sh ./
 
 # Make entrypoint executable
 RUN chmod +x entrypoint.sh
