@@ -101,12 +101,12 @@ deployments:
         value: http://quix.freeopcua.io
       - name: PARAMETER_NAMES_TO_PROCESS
         inputType: FreeText
-        description: List of parameters from your OPC UA server that you want to process. e.g. ['a', 'b', 'c']. NB:Use single quotes.
+        description: List of parameter names, comma-separated.
         required: true
-        value: "['T001', 'T002']"
+        value: T001,T002
       - name: LOGLEVEL
         inputType: FreeText
-        description: Desired loglevel; Use 'DEBUG' to see change events, else INFO for max performance.
+        description: Desired loglevel; Use DEBUG to see change events, else INFO for max performance.
         value: INFO
   - name: HTTP Data Normalization
     application: http-data-normalization
