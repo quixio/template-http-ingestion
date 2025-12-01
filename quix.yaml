@@ -63,6 +63,7 @@ deployments:
         required: true
         secretKey: http_auth_token
   - name: OPC UA Server
+    group: Example source
     application: opc-ua-server
     version: latest
     deploymentType: Service
@@ -76,6 +77,7 @@ deployments:
         - port: 4840
           targetPort: 4840
   - name: OPC UA Source
+    group: Example source
     application: opc-ua-source
     version: latest
     deploymentType: Service
@@ -86,7 +88,7 @@ deployments:
     variables:
       - name: output
         inputType: OutputTopic
-        description: This is the Quix Topic that will receive the generated data.
+        description: This is the Quix Topic that will receive the stream
         required: true
         value: generated-opc_ua_data
       - name: OPC_SERVER_URL
@@ -161,6 +163,7 @@ deployments:
         required: true
         value: my_bucket
   - name: HTTP Sink
+    group: Example source
     application: http-sink
     version: latest
     deploymentType: Service
