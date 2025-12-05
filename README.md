@@ -53,6 +53,28 @@ up and running.
 
 ## Project Architecture
 
+### Service Groups
+
+This project organizes deployments into **service groups** in the `quix.yaml` file.
+Service groups allow you to logically categorize related services and manage them together.
+
+| Group | Services | Purpose |
+|-------|----------|---------|
+| *(ungrouped)* | Grafana, HTTP API Source, HTTP Data Normalization, InfluxDB2, InfluxDB2 Sink | Core pipeline services |
+| `Example source` | OPC UA Server, OPC UA Source, HTTP Sink | Mock data generation for testing |
+
+In `quix.yaml`, a service is assigned to a group using the `group` property:
+
+```yaml
+deployments:
+  - name: OPC UA Server
+    group: Example source    # <-- assigns this service to the "Example source" group
+    application: opc-ua-server
+    ...
+```
+
+Services without a `group` property are part of the main (ungrouped) pipeline.
+
 ### HTTP Ingestion and Processing Pipeline
 
 This is the HTTP-based data ingestion and processing portion of the project:
@@ -60,9 +82,14 @@ This is the HTTP-based data ingestion and processing portion of the project:
 ![img](images/pipeline.png)
 
 
-### Mock Data Source
+### Mock Data Source (Example source group)
 
-These applications are only meant to simulate an external data source:
+These applications are only meant to simulate an external data source. They are grouped
+together under `Example source` in `quix.yaml` since they work as a unit:
+
+- **OPC UA Server**: Simulates an OPC UA server with sensor data
+- **OPC UA Source**: Reads data from the OPC UA server and publishes to Kafka
+- **HTTP Sink**: Sends the generated data to the HTTP API Source endpoint
 
 ![img](images/datagen.png)
 
